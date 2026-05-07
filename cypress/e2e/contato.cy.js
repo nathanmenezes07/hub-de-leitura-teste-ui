@@ -2,7 +2,7 @@
 describe('Funcionalidade: Contato', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:3000/index.html')
+    cy.visit('index.html')
 
   });
 
@@ -27,4 +27,33 @@ describe('Funcionalidade: Contato', () => {
 
     
   });
+  it('Teste sem preencher o e-mail', () => {
+    cy.get('[name="name"]').type('Nathan Menezes')
+    cy.get('[name="subject"]').select('Suporte Técnico')
+    cy.get('[name="message"]').type('teste')
+    cy.get('#btn-submit').click()
+    cy.contains('Por favor, preencha o campo E-mail').should('exist')
+
+  });  
+  
+  it('Teste sem preencher o Assunto', () => {
+    cy.get('[name="name"]').type('Nathan Menezes')
+    cy.get('[name="email"]').type('nathan@teste.com')
+    cy.get('[name="message"]').type('teste')
+    cy.get('#btn-submit').click()
+    cy.contains('Por favor, selecione o Assunto.').should('exist')
+
+    
+  });  
+  it('Teste sem preencher Mensagem', () => {
+
+    cy.get('[name="name"]').type('Nathan Menezes')
+    cy.get('[name="email"]').type('nathan@teste.com')
+    cy.get('[name="subject"]').select('Suporte Técnico')
+    cy.get('#btn-submit').click()
+    cy.contains('Por favor, escreva sua Mensagem').should('exist')
+    
+  });  
+
+  
 });
