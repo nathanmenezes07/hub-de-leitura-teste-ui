@@ -82,4 +82,11 @@ describe('Funcionalidade: Cadastro', () => {
 
     })
 
+    it('Deve preencher cadastro automatizado', () => {
+                let email = `teste${Date.now()}@teste.com`
+
+        cy.preencherCadastro('Nathan Menezes', email, '1111111111', 'teste123', 'teste123')
+        cy.url('include', 'dashboard')
+        
+    });
 });
