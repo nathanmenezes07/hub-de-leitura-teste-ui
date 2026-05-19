@@ -1,11 +1,11 @@
 /// <reference types="cypress"/>
 import { faker } from '@faker-js/faker';
-
+import cadastroPage from '../support/pages/cadastro-page';
 
 describe('Funcionalidade: Cadastro', () => {
 
     beforeEach(() => {
-        cy.visit('register.html')
+        cadastroPage.VisitarPáginaCadastro()
     });
 
     it.skip('Deve fazer Cadastro com sucesso: função', () => {
@@ -83,10 +83,58 @@ describe('Funcionalidade: Cadastro', () => {
     })
 
     it('Deve preencher cadastro automatizado', () => {
-                let email = `teste${Date.now()}@teste.com`
+        let email = `teste${Date.now()}@teste.com`
 
         cy.preencherCadastro('Nathan Menezes', email, '1111111111', 'teste123', 'teste123')
         cy.url('include', 'dashboard')
-        
+
     });
+
+    it('Deve cadastrar com sucesso - PageObjects', () => {
+        let name = faker.person.fullName()
+        let email = `teste${Date.now()}@teste.com`
+        let fone = faker.phone.number()
+        let senha = faker.internet.password()
+
+        cadastroPage.PreencherCadastro(name, email, fone, senha, senha)
+        cy.url('include', 'dashboard')
+
+
+    });
+    it('Deve validar mensagem de erro por falta de nome', () => {
+       let name = faker.person.fullName()
+        let email = faker.internet.email()
+        let fone = faker.phone.number()
+        let senha = faker.internet.password()
+
+        cadastroPage.PreencherCadastro('', email, fone, senha, senha)
+        cy.get(':nth-child(1) > .invalid-feedback').should('exist', 'Nome deve ter pelo menos 2 caracteres')
+
+
+    });
+
+    it('Deve validar mensagem de erro por falta de email', () => {
+       let name = faker.person.fullName()
+        let fone = faker.phone.number()
+        let senha = faker.internet.password()
+
+        cadastroPage.PreencherCadastro(name, '', fone, senha, senha)
+        cy.get('#register-form > :nth-child(2) > .invalid-feedback').should('exist', 'Email válido é obrigatório')
+
+
+    });
+    it('Deve validar mensagem de erro por senhas diferentes', () => {
+       let name = faker.person.fullName()
+        let email = faker.internet.email()
+        let fone = faker.phone.number()
+        let senha = faker.internet.password()
+
+        cadastroPage.PreencherCadastro(name, email, fone, senha, 'senha123')
+        cy.get(':nth-child(5) > .invalid-feedback').should('exist', 'Senhas não coincidem')
+
+
+    });
+
+
+
 });

@@ -19,8 +19,39 @@ describe('Funcionalidade: catálogo de busca', () => {
         cy.get('.input-group-text').click()
         cy.contains(catalogo[Math.floor(Math.random() * 3)].livro).should('exist')
 
-
-          
     });
+
+    it('Deve fazer busca usando fixture', () => {
+
+        cy.fixture('livros').then((cat) => {
+            cy.get('#search-input').type(cat[0].livro)
+            cy.get('.input-group-text').click()
+            cy.contains(cat[0].livro).should('exist')
+
+        })
+
+
+    });
+
+    it.only('Deve validar busca de todos os livros', () => {
+
+        cy.fixture('livros').then((cat) => {
+            cat.forEach(item => {
+                cy.get('#search-input').clear().type(item.livro)
+                cy.get('.input-group-text').click()
+                cy.contains(item.livro).should('exist')
+
+
+            }
+
+            )
+
+
+        })
+
+
+    });
+
+
 
 });
