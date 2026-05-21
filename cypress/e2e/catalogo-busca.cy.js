@@ -33,7 +33,7 @@ describe('Funcionalidade: catálogo de busca', () => {
 
     });
 
-    it.only('Deve validar busca de todos os livros', () => {
+    it('Deve validar busca de todos os livros', () => {
 
         cy.fixture('livros').then((cat) => {
             cat.forEach(item => {

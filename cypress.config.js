@@ -7,7 +7,9 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: "http://localhost:3000/"
+    baseUrl: "http://localhost:3000/",
+    projectId: "usbj47",    
+
     
   },
 });
