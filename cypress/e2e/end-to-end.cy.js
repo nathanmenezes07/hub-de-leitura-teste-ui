@@ -16,18 +16,10 @@ describe('Funcionalidade: Cadastrar e Logar', () => {
         let fone = faker.phone.number()
         let senha = faker.internet.password()
 
-        cy.get('#name').type(name)
-        cy.get('#email').type(email)
-        cy.get('#phone').type(fone)
-        cy.get('#password').type(senha)
-        cy.get('#confirm-password').type(senha)
-        cy.get('#terms-agreement').click()
-        cy.get('#register-btn').click()
+        cadastroPage.PreencherCadastro(name, email, fone, senha, senha)
         cy.url('include', 'dashboard')
         cy.get('.user-actions > .btn-outline-danger > .fas').click()
-        cy.get('#email').type(email)
-        cy.get('#password').type(senha)
-        cy.get('#login-btn').click()
+        cadastroPage.FazerLogin(email, senha)
         cy.url().should('include', 'dashboard')
 
 

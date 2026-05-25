@@ -29,6 +29,11 @@ class CadastroPage {
 
     }
 
+    FazerLogin(email, senha) {
+     cy.get('#email').type(email)
+        cy.get('#password').type(senha)
+        cy.get('#login-btn').click()
+    }
 
 }
 
