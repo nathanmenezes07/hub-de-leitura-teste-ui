@@ -1,7 +1,14 @@
 /// <reference types="cypress"/>
 import { faker } from '@faker-js/faker';
+import cadastroPage from '../support/pages/cadastro-page';
+
 
 describe('Funcionalidade: Cadastrar e Logar', () => {
+    beforeEach(() => {
+       cadastroPage.VisitarPáginaCadastro()
+        
+        
+    });
 
     it.only('Deve cadastrar e logar com sucesso', () => {
         let name = faker.person.fullName()
@@ -9,7 +16,6 @@ describe('Funcionalidade: Cadastrar e Logar', () => {
         let fone = faker.phone.number()
         let senha = faker.internet.password()
 
-        cy.visit('register.html')
         cy.get('#name').type(name)
         cy.get('#email').type(email)
         cy.get('#phone').type(fone)
